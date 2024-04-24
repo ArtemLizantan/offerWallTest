@@ -4,21 +4,13 @@ import Logger from "./components/logger/Logger";
 import Table from "./components/table/Table";
 import Title from "./components/title/Title";
 import { useData } from "./context/Context";
+import Home from "./screens/home/Home";
 import "./styles/index.scss";
 
 function App() {
-   const { data, setSelect, select } = useData();
-
-   console.log(select);
-
-   console.log(data);
    return (
       <>
-         <Button text={"test"} />
-         <Title text={"Test"} />
-         <Logger />
-         <CustomSelect options={data} onSelect={setSelect} />
-         <Table data={data} selected={select} />
+         <Home />
       </>
    );
 }

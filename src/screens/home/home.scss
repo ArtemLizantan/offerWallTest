@@ -1,0 +1,21 @@
+.home {
+    display: flex;
+    justify-content: center;
+    padding-top: 150px;
+   &__body {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+   }
+   &__left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
+   }
+   &__left-top {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+   }
+}
