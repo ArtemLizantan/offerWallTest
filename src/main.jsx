@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
    <ContextProvider>
-      <BrowserRouter basename="/User-Weather/">
+      <BrowserRouter>
          <App />
       </BrowserRouter>
    </ContextProvider>

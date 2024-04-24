@@ -5,5 +5,19 @@ body {
    font-family: "Montserrat", sans-serif;
    font-weight: 300;
    font-size: 14px;
-   background-color: #1d1f21;
+   background-color: var(--main-bg);
+   color: var(--whiteColor);
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   min-height: 100vh;
+}
+
+body {
+   --main-bg: #1e2538;
+   --blueColor: blue;
+   --whiteColor: white;
+   --creameColor: bisque;
+   --blackColor: black;
 }
