@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./table.scss";
+import { useData } from "../../context/Context";
 
 const Table = ({ data, selected, start }) => {
    const [array, setArray] = useState([]);
+   const [coordinates, setCoordinates] = useState([]);
+   const { setGlobalCoordinates, globalCoordinates, select } = useData();
 
    useEffect(() => {
       const newArray = [];
@@ -37,24 +40,50 @@ const Table = ({ data, selected, start }) => {
       const row = Math.floor(index / 5) + 1;
       const square = (index % field) + 1;
       const column = (index % 5) + 1;
-      console.log(
-         `Hovered square: id ${id} Row ${row}, Column ${column} Square ${square}`
+
+      const existingCoordinateIndex = coordinates.findIndex(
+         (coord) => coord.id === id
       );
+      if (existingCoordinateIndex !== -1) {
+         const updatedCoordinates = [...coordinates];
+         updatedCoordinates[existingCoordinateIndex] = {
+            ...updatedCoordinates[existingCoordinateIndex],
+            hover: !updatedCoordinates[existingCoordinateIndex].hover,
+         };
+         setTimeout(() => setCoordinates(updatedCoordinates);
+         setGlobalCoordinates(updatedCoordinates),0.2)
+      } else {
+         const newCoordinates = [
+            ...coordinates,
+            { id, row, column, square, hover: true },
+         ];
+         setCoordinates(newCoordinates);
+         setGlobalCoordinates(newCoordinates);
+      }
    };
+
+   useEffect(() => {
+      setCoordinates([]);
+      setGlobalCoordinates([]);
+   }, [selected]);
 
    return (
       start && (
          <div style={styles} className="square-field">
             <div className="row">
-               {array.map(({ id, index }) => (
-                  <div
-                     key={id}
-                     data-id={id}
-                     data-index={index}
-                     className="square"
-                     onMouseEnter={handleHoverSquares}
-                  ></div>
-               ))}
+               {array.map(({ id, index }) => {
+                  return (
+                     <div
+                        key={id}
+                        data-id={id}
+                        data-index={index}
+                        className="square"
+                        onMouseEnter={(event) => {
+                           handleHoverSquares(event);
+                        }}
+                     ></div>
+                  );
+               })}
             </div>
          </div>
       )

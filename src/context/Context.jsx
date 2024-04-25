@@ -6,6 +6,7 @@ const Context = createContext();
 export const ContextProvider = ({ children }) => {
    const [data, setData] = useState([]);
    const [select, setSelect] = useState(null);
+   const [globalCoordinates, setGlobalCoordinates] = useState([]);
 
    useEffect(() => {
       const fetchData = async () => {
@@ -19,7 +20,14 @@ export const ContextProvider = ({ children }) => {
 
       fetchData();
    }, []);
-   const contextValue = { data, setSelect, select };
+
+   const contextValue = {
+      data,
+      setSelect,
+      select,
+      globalCoordinates,
+      setGlobalCoordinates,
+   };
    console.log(contextValue);
    return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };
