@@ -20,7 +20,7 @@ export const ContextProvider = ({ children }) => {
       fetchData();
    }, []);
    const contextValue = { data, setSelect, select };
-   // console.log(contextValue);
+   console.log(contextValue);
    return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };
 

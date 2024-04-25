@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./table.scss";
 
-const Table = ({ data, selected }) => {
+const Table = ({ data, selected, start }) => {
    const [array, setArray] = useState([]);
 
    useEffect(() => {
@@ -34,13 +34,15 @@ const Table = ({ data, selected }) => {
    };
 
    return (
-      <div style={styles} className="square-field">
-         <div className="row">
-            {array.map((index) => (
-               <div key={index} className="square"></div>
-            ))}
+      start && (
+         <div style={styles} className="square-field">
+            <div className="row">
+               {array.map((index) => (
+                  <div key={index} className="square"></div>
+               ))}
+            </div>
          </div>
-      </div>
+      )
    );
 };
 
