@@ -15,16 +15,14 @@ const Logger = () => {
             </div>
             {globalCoordinates.length !== 0 ? (
                <div className="logger__body">
-                  {globalCoordinates
-                     .reverse()
-                     .map(({ id, row, column, square }) => (
-                        <LoggerItem
-                           key={id}
-                           row={row}
-                           square={square}
-                           column={column}
-                        />
-                     ))}
+                  {globalCoordinates.map(({ id, row, column, square }) => (
+                     <LoggerItem
+                        key={id}
+                        row={row}
+                        square={square}
+                        column={column}
+                     />
+                  ))}
                </div>
             ) : (
                <div className="logger__nothing">Nothing logged</div>

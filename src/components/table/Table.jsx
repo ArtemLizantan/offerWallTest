@@ -4,8 +4,7 @@ import { useData } from "../../context/Context";
 
 const Table = ({ data, selected, start }) => {
    const [array, setArray] = useState([]);
-   const [coordinates, setCoordinates] = useState([]);
-   const { setGlobalCoordinates } = useData();
+   const { setGlobalCoordinates, globalCoordinates } = useData();
 
    useEffect(() => {
       const newArray = [];
@@ -17,32 +16,52 @@ const Table = ({ data, selected, start }) => {
          }
       });
       setArray(newArray);
-   }, [selected]);
+   }, [selected, data]);
 
-   const handleHoverSquares = (id) => {
+   const handleHoverSquares = (event) => {
+      const { id, index } = event.target.dataset;
+      const { field } = data.find(({ name }) => name === selected);
+      const row = Math.floor(index / 5) + 1;
+      const square = (index % field) + 1;
+      const column = (index % 5) + 1;
+
       const updatedArray = array.map((item) =>
-         item.id === id ? { ...item, hovered: !item.hovered } : item
+         item.id === id && item.index.toString() === index
+            ? { ...item, hovered: !item.hovered }
+            : item
       );
+
       setArray(updatedArray);
 
-      const newCoordinates = updatedArray.map(({ id, index, hovered }) => {
-         const { field } = data.find(({ name }) => name === selected);
-         const row = Math.floor(index / 5) + 1;
-         const square = (index % field) + 1;
-         const column = (index % 5) + 1;
-         return { id, row, column, square, hover: hovered };
-      });
+      const coordinatesExist = globalCoordinates.some(
+         (coord) =>
+            coord.id === id &&
+            coord.row === row &&
+            coord.column === column &&
+            coord.square === square
+      );
 
-      const hoveredCoordinates = newCoordinates.filter((coord) => coord.hover);
-
-      setCoordinates(hoveredCoordinates);
-      setGlobalCoordinates(hoveredCoordinates);
+      if (!coordinatesExist) {
+         setGlobalCoordinates((prevCoordinates) => [
+            ...prevCoordinates,
+            { id, row, column, square },
+         ]);
+      } else {
+         setGlobalCoordinates((prevCoordinates) =>
+            prevCoordinates.filter(
+               (coord) =>
+                  coord.id !== id ||
+                  coord.row !== row ||
+                  coord.column !== column ||
+                  coord.square !== square
+            )
+         );
+      }
    };
 
    useEffect(() => {
-      setCoordinates([]);
       setGlobalCoordinates([]);
-   }, [selected]);
+   }, [selected, setGlobalCoordinates]);
 
    return (
       start && (
@@ -56,7 +75,7 @@ const Table = ({ data, selected, start }) => {
                         data-index={index}
                         className="square"
                         style={{ background: hovered ? "blue" : "white" }}
-                        onMouseEnter={() => handleHoverSquares(id)}
+                        onMouseEnter={(event) => handleHoverSquares(event)}
                      ></div>
                   );
                })}
