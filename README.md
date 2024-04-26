@@ -1,5 +1,5 @@
 Запуск проекта
-
+git clone https://github.com/ArtemLizantan/offerWallTest.git
 npm install
 npm run dev
 
