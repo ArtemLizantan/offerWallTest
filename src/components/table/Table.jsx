@@ -19,21 +19,6 @@ const Table = ({ data, selected, start }) => {
       setArray(newArray);
    }, [selected]);
 
-   let maxWidth;
-   if (array.length >= 70) {
-      maxWidth = 450;
-   } else if (array.length >= 50) {
-      maxWidth = 400;
-   } else if (array.length <= 15) {
-      maxWidth = 260;
-   } else {
-      maxWidth = 200;
-   }
-
-   const styles = {
-      maxWidth: `${maxWidth}px`,
-   };
-
    const handleHoverSquares = (id) => {
       const updatedArray = array.map((item) =>
          item.id === id ? { ...item, hovered: !item.hovered } : item
@@ -48,17 +33,20 @@ const Table = ({ data, selected, start }) => {
          return { id, row, column, square, hover: hovered };
       });
 
-      setCoordinates(newCoordinates);
-      setGlobalCoordinates(newCoordinates);
+      const hoveredCoordinates = newCoordinates.filter((coord) => coord.hover);
+
+      setCoordinates(hoveredCoordinates);
+      setGlobalCoordinates(hoveredCoordinates);
    };
 
    useEffect(() => {
       setCoordinates([]);
+      setGlobalCoordinates([]);
    }, [selected]);
 
    return (
       start && (
-         <div style={styles} className="square-field">
+         <div className="square-field">
             <div className="row">
                {array.map(({ id, index, hovered }) => {
                   return (

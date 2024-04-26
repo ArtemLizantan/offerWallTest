@@ -16,7 +16,7 @@ const Home = () => {
 
    return (
       <section className="home">
-         <div className="home__body">
+         <div style={{ gap: start ? "100px" : 0 }} className="home__body">
             <div className="home__left">
                <div className="home__left-bottom">
                   <Table start={start} data={data} selected={select} />
