@@ -1,10 +1,33 @@
 .logger {
+   border: 1px solid var(--blackColor);
+   padding: 20px;
+   border-radius: 10px;
+   height: 250px;
+   width: 400px;
+   overflow: auto;
+   display: flex;
+   align-items: center;
+   &__body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+   }
    &__item {
       background-color: var(--creameColor);
-      padding: 20px;
+      padding: 10px;
       color: var(--blackColor);
-      font-size: 20px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 500;
       border-radius: 10px;
+   }
+}
+
+.logger-item {
+   &__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
    }
 }

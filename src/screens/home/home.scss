@@ -5,17 +5,22 @@
    &__body {
       display: flex;
       align-items: flex-start;
-      justify-content: space-between;
+      gap: 100px;
    }
    &__left {
       display: flex;
       align-items: flex-start;
-      gap: 50px;
+      gap: 20px;
+      flex-direction: column;
    }
    &__left-top {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 10px;
+   }
+   &__right{
+      display: flex;
       flex-direction: column;
+      gap: 20px;
    }
 }
